@@ -1,115 +1,68 @@
-
-.container{
+.mainContainer {
+    flex-direction: column;
     display: flex;
-    height: 100%;
-}
-
-.logo{
-    position: relative;
-    width: 40%;
-    height: 100%;
-    background: url("./bg.jpg");
-    background-position: center;
-    background-size: cover;
-    font-family: Norse;
-    
-
-}
-#login-container{
-    height: 100%;
-}
-#body{
-    height: 100%;
-    margin: 0;
-}
-.logo-header{
-    position: relative;
-    display: flex;
-    top:20%;
-    background-color:rgb(0, 0, 0,0.4);
     align-items: center;
     justify-content: center;
-    color: white;
-    width: 100%;
-    font-size: 200%;
-
-}
-img{
-    height: 80px;
-    width: 80px;
-}
-.content{
+    height: 100vh;
+  }
+  
+  .titleContainer {
     display: flex;
-    width:95%;
-    height:50%; 
     flex-direction: column;
-    align-items: flex-start;
+    font-size: 64px;
+    font-weight: bolder;
+    align-items: center;
     justify-content: center;
-    gap: 15%;
-    padding-left: 5%;
-    background: white;
-}
-.row{
+  }
+  
+  .resultContainer, .historyItem { 
+    flex-direction: row;
     display: flex;
+    width: 400px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .historyContainer {
+    flex-direction: column;
+    display: flex;
+    height: 200px;
+    align-items: center;
+    flex-grow: 5;
     justify-content: flex-start;
-    align-items: flex-start;
-    gap: 20%;
-    width: 100%;
-}
-.input{
+  }
+  
+  .buttonContainer {
     display: flex;
     flex-direction: column;
-    align-items: left;
-    justify-content: left;
-}
-
-input:focus{
-    border: 2px solid lightblue;
-    outline: none;
-}
-input{
-    border: 2px solid #E5E7EB;
-    border-radius: 5px;
-}
-
-.col{
-    display: flex;
-    flex-direction: column;
-    background: rgb(228, 227, 227);
-    width:100%;
-    height:100%; 
-    align-items: left;
+    align-items: center;
     justify-content: center;
-    
-}
-button{
-    
-    width: 200px;
-    height: 50px;
-    border: 0;
-    border-radius: 10px;
-    margin: 10px;
-    background: #596D48;
-    font-size: large;
-    color: #E5E7EB;
-    font-weight: bold;
-    margin-left: 30px;
-    margin-top: 40px;
+    height: 260px;
+  }
+  
+  .inputContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .inputContainerRow {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+  }
 
-}
-h1{
-    padding-left: 5%;
-    text-align: left;
-    max-width: 70%;
-}
-p{
-    padding-left: 5%;
-}
-label{
-    color: gray;
-    font-size: small;
-}
-a{
-    color: #596D48;
-    text-decoration: none;
-}
+  .inputContainer > .errorLabel {
+    color: red;
+    font-size: 12px;
+  }
+  
+  .inputBox {
+    height: 48px;
+    width: 400px;
+    font-size: large;
+    border-radius: 8px;
+    border: 1px solid grey;
+    padding-left: 8px;
+  }
