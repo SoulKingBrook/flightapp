@@ -3,6 +3,7 @@ import './App.css';
 import Login from './login';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import FlightBooking from './flightBooking';
+import Registration from './Registration';
 
 
 
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/booking" element={<FlightBooking />} />
+        <Route path="/register" element={<Registration />} />
       </Routes>
       </BrowserRouter>
       </div>

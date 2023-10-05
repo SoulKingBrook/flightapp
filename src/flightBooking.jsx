@@ -13,7 +13,7 @@ const FlightBooking = () => {
 
       <br />
       <div className={"inputContainerRow"}>
-        <div className={"inputContainerRow"}>
+        <div className={"inputContainer"}>
           <input
             value={from}
             placeholder="Enter Source"
@@ -21,7 +21,7 @@ const FlightBooking = () => {
             className={"inputBox"}
           />
         </div>
-        <div className={"inputContainerRow"}>
+        <div className={"inputContainer"}>
           <input
             value={to}
             placeholder="Enter Destination"
@@ -31,6 +31,7 @@ const FlightBooking = () => {
         </div>
         <br />
       </div>
+      <br />
       <div className={"inputContainerRow"}>
         <div className={"inputContainer"}>
           <input
