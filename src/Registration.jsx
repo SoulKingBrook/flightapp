@@ -1,58 +1,121 @@
-import React from 'react';
-import './registration.css'
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import './registration.css';
+import apiClient from "./http/apiClient";
+import ErrorIcon from "./icons/ErrorIcon";
+import SuccessIcon from "./icons/SuccessIcon"
+
+
 const Registration = () => {
-    return ( 
-    <div id="login-container">
-      <div id="body">
-        <div class="container">
-          <div class="logo">
-            <div class="logo-header">
-              <h1>Flight Booking</h1>
-            </div>
-          </div>
-          <div class="col">
-            <h1>
-              Signup <em>now </em> and get started
-            </h1>
-            <form action="#" id="form" class="content">
-              <div class="row">
-                <div class="input">
-                  <label for="first name">FIRST NAME</label>
-                  <input type="text" placeholder="" id="first name" required />
-                </div>
-                <div class="input">
-                  <label for="last name">LAST NAME</label>
-                  <input type="text" placeholder="" id="last name" required />
-                </div>
-              </div>
-              <div class="row">
-                <div class="input">
-                  <label for="first name">EMAIL</label>
-                  <input type="email" placeholder="" id="first name" required />
-                </div>
-                <div class="input">
-                  <label for="last name">PHONE NUMBER</label>
-                  <input type="tel" placeholder="" id="last name" required />
-                </div>
-              </div>
-              <div class="row">
-                <div class="input">
-                  <label for="first name">PASSWORD</label>
-                  <input type="password" placeholder="" id="first name" required />
-                </div>
-                <div class="input">
-                  <label for="last name">CONFIRM PASSWORD</label>
-                  <input type="password" placeholder="" id="last name" required />
-                </div>
-              </div>
-            </form>
-            <button form="form" type="submit">Create Account</button>
-            <p>Already have an account? <a href="#">Log in</a></p>
-          </div>
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [mobile, setMobile] = useState("");
+    const [confirmPassword,setConfirmPassword]=useState("")
+    const [error, setError] = useState(null)
+    const [successMsg,setSuccessMsg]=useState(null)
+
+    
+
+            
+    const registerUser = () =>{
+
+      if(email===""){
+        setError("Email cannot be empty");
+        return
+    }
+    if(password===""){
+        setError("Password cannot be empty")
+        return
+    }
+    if(confirmPassword===""){
+      setError("please re enter your password");
+      return
+  }
+  if(mobile===""){
+      setError("please enter mobile no");
+      return
+  }
+  else{
+      const postData={
+        "email":email,
+        "password":password,
+        "mobile":mobile
+      }
+      apiClient.post("/auth/register",postData).then(
+        response=>{
+          console.log(response)
+          if(response.data.successMsg!==null){
+          setSuccessMsg(response.data.successMsg);
+          setError(null)
+          }
+          else{
+            setError(response.data.errorMsg);
+            setSuccessMsg(null);
+          }
+        }
+      ).catch(err=>{
+        console.log(err)
+        setError(err.data)
+      })
+
+    }
+    }
+
+    return (
+      <div className="registration-container">
+        <h2>Register</h2>
+        <div className="input-container">
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
+        <div className="input-container">
+          <input
+            type="text"
+            placeholder="Mobile"
+            value={mobile}
+            onChange={(e) => setMobile(e.target.value)}
+          />
+        </div>
+        <div className="input-container">
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="input-container">
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+        </div>
+        {error!==null&&
+  <div className="error-message">
+  <ErrorIcon className="icon"/>
+  <div>
+      {error}
       </div>
-    </div>
-       );
-}
+  </div>}
+  {successMsg!==null&&
+  <div className="error-message">
+  <SuccessIcon className="icon"/>
+  <div>
+      {successMsg}
+      </div>
+  </div>}
+    <button
+    className="register-button"
+    onClick={registerUser}
+    >Register</button>
+  <Link to="/login"></Link>
+      </div>);
+};
 
 export default Registration;

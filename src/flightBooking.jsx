@@ -1,22 +1,27 @@
 import React, { useState } from "react";
+import "./registration.css"
 const FlightBooking = () => {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
 
+
+  const fetchFlights = ()=>{}
+
   return (
     <div className={"mainContainer"}>
       <div className={"titleContainer"}>
         <div>Booking</div>
       </div>
-
       <br />
       <div className={"inputContainerRow"}>
         <div className={"inputContainer"}>
+          <label htmlFor="source"></label>
           <input
             value={from}
             placeholder="Enter Source"
+            id="source"
             onChange={(ev) => setFrom(ev.target.value)}
             className={"inputBox"}
           />
@@ -53,7 +58,9 @@ const FlightBooking = () => {
         </div>
         </div>
         <br />
-        <button>Proceed</button>
+        <button
+        onClick={fetchFlights}
+        >Proceed</button>
       
     </div>
   );
