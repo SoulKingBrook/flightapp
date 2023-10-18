@@ -1,9 +1,11 @@
-/* src/components/Registration.css */
 .registration-container {
   width: 300px;
   margin: 0 auto;
-  margin-top: 200px;
-  padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
   background-color: #f9f9f9;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -27,7 +29,7 @@ input {
 }
 
 .register-button {
-  background-color: #007bff;
+  background-color: #a564b1;
   color: white;
   border: none;
   border-radius: 3px;

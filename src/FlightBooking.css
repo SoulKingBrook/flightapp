@@ -1,0 +1,74 @@
+/* src/components/FlightBooking.css */
+.navbar {
+  background-color: #E6E6FA;
+  overflow: hidden;
+  display: flex; /* Use flexbox to align items */
+  justify-content: flex-end; /* Align items to the right */
+  padding: 3px; /* Add some padding to space them out */
+}
+
+.navbar a {
+  color: rgb(23, 20, 20);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  margin: 0 10px; /* Add margin between the links */
+}
+
+.navbar a:hover {
+  background-color: #a564b1;
+  color: black;
+}
+
+/* Rest of your styles... */
+
+
+.mainContainer {
+  width: 700px;
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+.titleContainer {
+  /* font-size: 2em; */
+  margin-bottom: 20px;
+  color: #a564b1;
+}
+
+.inputContainerRow {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 40px;
+}
+
+.inputContainer {
+  width: 38%; /* Adjusted to leave space between input fields */
+}
+
+.inputBox {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 16px;
+}
+
+button {
+  background-color: #a564b1;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}

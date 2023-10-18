@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import './login.css';
 import apiClient from "./http/apiClient";
 import ErrorIcon from "./icons/ErrorIcon";
@@ -15,9 +15,9 @@ const Login = (props) => {
     const onButtonClick = () => {
 
         if(email===""){
-            setError("Email cannot be empty");
-            return
-        }
+          setError("Email cannot be empty");
+          return
+      }
         if(password===""){
             setError("Password cannot be empty")
             return
@@ -25,21 +25,20 @@ const Login = (props) => {
         else{
 
         const postData={
-            "userName":email,
+            "email":email,
             "password":password
         }
         apiClient.post("/auth/generate",postData).then((result) => {
-            localStorage.setItem('login',JSON.stringify({
-                "login":true,
-                "token":result.data.token
-            }));
-
-            console.log(result)
+            localStorage.setItem("token",result.data);
+            console.log(localStorage.getItem("token"),result)
             navigate("/booking");
         }).catch((err) => {
             console.log(err);
-            if(err.response.status===403){
+            if(err&& err.response&&err.response.status===403){
                 setError("Please check your login credentials")
+            }
+            else{
+              setError("internal server error Plaese try again")
             }
         });
         return
@@ -74,6 +73,10 @@ const Login = (props) => {
               <button className="login-button" onClick={onButtonClick}>
                 Login
               </button>
+              <br />
+              <br />
+              <div>Not a customer? Register <Link to="/register">here</Link></div>
+              <div>forgot password? <Link to="/forgot">here</Link></div>
             </div>
     );
 };
