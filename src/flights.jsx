@@ -19,8 +19,8 @@ const Flights =()=>{
             "rangeStart":fromDate,
             "rangeEnd":toDate
         }
-        apiClient.defaults.headers["Authorization"]=token
-        apiClient.post("/auth/booking/flights",getData).then(result =>{
+        apiClient.defaults.headers.common={"Authorization":`Bearer ${token}`}
+        apiClient.post("/app/booking/flights",getData).then(result =>{
             console.log(result)
             setFlights(result.data)
             setFetched(true)
