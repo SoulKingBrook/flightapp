@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import './login.css';
-import apiClient from "./http/apiClient";
 import ErrorIcon from "./icons/ErrorIcon";
 
 const Forgot = (props) => {

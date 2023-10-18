@@ -4,7 +4,7 @@ import apiClient from './http/apiClient';
 
 const Flights =()=>{
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const [isFetched, setFetched] = useState(false);
     const [flights,setFlights]=useState(null)
 
@@ -38,7 +38,7 @@ const Flights =()=>{
             {flights&&
             flights.map(
                 (flight) =>{
-                    return (<div>
+                    return (<div key={flight.flightNumber}>
                         <h3>{flight.flightNumber}</h3>
                         <h3>{flight.dateOfDeparture}</h3>
                         <h3>{flight.dateOfDeparture}</h3>

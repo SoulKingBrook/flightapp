@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import "./FlightBooking.css"; // Import the CSS file
 import { useNavigate } from "react-router-dom";
 const FlightBooking = () => {
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
+  const [from, setFrom] = useState("default");
+  const [to, setTo] = useState("default");
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const navigate = useNavigate();
@@ -22,22 +22,27 @@ const FlightBooking = () => {
         <br />
         <div className="inputContainerRow">
           <div className="inputContainer">
-            <label htmlFor="source"></label>
-            <input
-              value={from}
+            
+            <select value={from}
               placeholder="Enter Source"
               id="source"
               onChange={(ev) => setFrom(ev.target.value)}
-              className="inputBox"
-            />
+              className="inputBox">
+              <option disabled value="default">Enter source</option>
+              <option value="dcity1">dcity1</option>
+              <option value="dcity2">dcity2</option>
+              </select>
           </div>
           <div className="inputContainer">
-            <input
-              value={to}
+          <select value={to}
               placeholder="Enter Destination"
+              id="destination"
               onChange={(ev) => setTo(ev.target.value)}
-              className="inputBox"
-            />
+              className="inputBox">
+              <option disabled value="default">Enter destination</option>
+              <option value="acity1">acity1</option>
+                <option value="acity2">acity2</option>
+              </select>
           </div>
         </div>
         <br />

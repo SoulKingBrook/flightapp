@@ -49,6 +49,51 @@ const Registration = () => {
         });
     }
   };
+  const onChange=(type,value)=>{
+    if(type==="mobile" && !isNaN(value) && value.length<=10){
+      if(value.length<10){
+      setError("enter atleast 10 numbers")
+      }
+      else{
+        setError(null)
+      }
+      setMobile(value)
+    }
+    else if(type==="password"){
+      let format= new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
+      console.log(format.test(value),value)
+      if(!format.test(value)){
+      setError("Password must contain a special character Uppercase and number");
+      }
+      else{
+        setError(null)
+      }
+      setPassword(value);
+    }
+    else if(type==="email"){
+      //let format=new RegExp(`^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$`);
+      console.log(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value),value)
+      if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)){
+      setError("enter a valid email");
+      }
+      else{
+        setError(null)
+      }
+      setEmail(value);
+    }
+    else if(type==="confirmpassword"){
+      if(value!==password){
+        setError("Passwords dont match ")
+      }
+      else{
+        setError(null)
+      }
+      setConfirmPassword(value)
+    }
+  }
+  const disabled=()=>{
+    return !(email!="" && password!="" && mobile!="" && error==null)
+  }
 
   return (
     <div className="registration-container">
@@ -59,23 +104,24 @@ const Registration = () => {
           type="email"
           placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => onChange("email",e.target.value)}
         />
       </div>
       <div className="input-container">
         <input
-          type="text"
+          type="tel"
           placeholder="Mobile"
           value={mobile}
-          onChange={(e) => setMobile(e.target.value)}
+          onChange={(e) => onChange("mobile",e.target.value)}
         />
+        
       </div>
       <div className="input-container">
         <input
           type="password"
           placeholder="Password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => onChange("password",e.target.value)}
         />
       </div>
       <div className="input-container">
@@ -83,7 +129,7 @@ const Registration = () => {
           type="password"
           placeholder="Confirm Password"
           value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
+          onChange={(e) => onChange("confirmpassword",e.target.value)}
         />
       </div>
       {error !== null && (
@@ -98,7 +144,7 @@ const Registration = () => {
           <div>{successMsg}</div>
         </div>
       )}
-      <button className="register-button" onClick={registerUser}>
+      <button className="register-button" onClick={registerUser} disabled={disabled()}>
         Register
       </button>
       <br />
