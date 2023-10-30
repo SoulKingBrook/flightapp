@@ -1,0 +1,83 @@
+.flightcard {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 88%;
+    height: 150px;
+    background-color: white;
+    margin: 20px;
+    padding: 50px;
+    border-radius: 15px;
+}
+
+.flightcard:hover {
+    cursor: pointer;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+.flightsContainer {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    width: 80%;
+    height: 100%;
+    overflow: scroll;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.flightsContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.heading {
+    font-size: xx-large;
+}
+
+p {
+    margin: 0;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+
+.priceContainer {
+    margin-left: 0;
+}
+
+.price {
+    font-size: 50px;
+}
+
+.line {
+    width: 100%;
+    height: 0;
+    border: 1px solid gray;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.filterContainer {
+    background-color: white;
+    width: 20%;
+    height: 100%;
+}
+
+.filter {
+    width: 80%;
+    padding-left: 10%;
+}

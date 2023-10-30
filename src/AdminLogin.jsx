@@ -4,7 +4,7 @@ import './login.css';
 import apiClient from "./http/apiClient";
 import ErrorIcon from "./icons/ErrorIcon";
 
-const Login = (props) => {
+const AdminLogin = (props) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState(null)
@@ -28,20 +28,20 @@ const Login = (props) => {
         "email": email,
         "password": password
       }
-      apiClient.post("/auth/generate", postData).then((result) => {
+      apiClient.post("/auth/generateAdmin", postData).then((result) => {
         localStorage.setItem("token", result.data);
         console.log(localStorage.getItem("token"), result)
         localStorage.setItem("sessionUser", email);
         const event = new CustomEvent('localdatachanged');
         document.dispatchEvent(event);
-        navigate("/booking");
+        navigate("/admin/cancelbookings");
       }).catch((err) => {
         console.log(err);
         if (err && err.response && err.response.status === 403) {
-          setError("Please check your login credentials")
+          setError("Please check your login credentials or admin access")
         }
         else {
-          setError("internal server error Plaese try again")
+          setError("internal server error Please try again")
         }
       });
       return
@@ -76,7 +76,7 @@ const Login = (props) => {
   }
   return (
     <div className="login-container">
-      <h2>Login</h2>
+      <h2>Admin Login</h2>
       <div className="input-container">
         <input
           type="email" // Change the input type to "email"
@@ -105,11 +105,11 @@ const Login = (props) => {
       </button>
       <br />
       <br />
-      <div>Not a customer? Register <Link to="/register">here</Link></div>
+      <div>Not a customer? Register <Link to="/admin/register">here</Link></div>
       <div>forgot password? <Link to="/forgot">here</Link></div>
     </div>
   );
 };
 
 
-export default Login
+export default AdminLogin

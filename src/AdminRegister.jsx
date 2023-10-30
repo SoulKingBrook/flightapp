@@ -6,7 +6,7 @@ import ErrorIcon from "./icons/ErrorIcon";
 import SuccessIcon from "./icons/SuccessIcon"
 
 
-const Registration = () => {
+const AdminRegistration = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mobile, setMobile] = useState("");
@@ -32,7 +32,7 @@ const Registration = () => {
         mobile: mobile,
       };
       apiClient
-        .post("/auth/register", postData)
+        .post("/auth/registerAdmin", postData)
         .then((response) => {
           console.log(response);
           if (response.data.successMsg !== null) {
@@ -97,7 +97,7 @@ const Registration = () => {
 
   return (
     <div className="registration-container">
-      <h2>Register</h2>
+      <h2>Admin Register</h2>
 
       <div className="input-container">
         <input
@@ -149,9 +149,9 @@ const Registration = () => {
       </button>
       <br />
       <br />
-      <div>already a customer? login <Link to="/login">here</Link></div>
+      <div>already a customer? login <Link to="/admin/login">here</Link></div>
     </div>
   );
 };
 
-export default Registration;
+export default AdminRegistration;
