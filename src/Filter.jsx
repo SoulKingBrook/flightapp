@@ -9,7 +9,7 @@ const Filter = ({ flights, setFlights }) => {
     const [priceValue, setPriceValue] = useState(0);
     const [initialFlights, setInitialFlights] = useState(null)
     const [isFetched, setFetched] = useState(false)
-    const [sortBy, setSortBy] = useState(null)
+    const [sortBy, setSortBy] = useState("");
     const convertTimeString = (time) => {
         const [hour, minute] = time.split(":");
 
@@ -63,12 +63,14 @@ const Filter = ({ flights, setFlights }) => {
     }, [departureTimeValues])
     useEffect(() => {
         console.log(initialFlights)
-        if (initialFlights != null && initialFlights != []) {
+        if (flights != null) {
             if (sortBy === "price") {
-                setFlights(initialFlights.sort((a, b) => a.prices.price.totalAmountUsd - b.prices.price.totalAmountUsd))
+                setFlights([...flights].sort((a, b) => a.prices.price.totalAmountUsd - b.prices.price.totalAmountUsd))
+                console.log(flights)
             }
             else if (sortBy === "departureTime") {
-                setFlights(initialFlights.sort((a, b) => convertTimeString(a.departureTime) - convertTimeString(b.departureTime)))
+                setFlights([...flights].sort((a, b) => convertTimeString(a.departureTime) - convertTimeString(b.departureTime)))
+                console.log(flights)
             }
         }
     }, [sortBy])
