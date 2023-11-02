@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import apiClient from "./http/apiClient";
+import "./pricebreakdown.css"
 
 const PriceBreakdown = () => {
 
@@ -34,17 +35,42 @@ const PriceBreakdown = () => {
 
     }
     return (
-        <div>
+        <div className='tablecontainer'>
             {
                 price &&
-                <div>
-                    <h3>{price['amountPerAdult']}</h3>
-                    <h3>{price['amountPerChild']}</h3>
-                    <h3>{price['amountPerInfant']}</h3>
-                    <h3>{price['bookingFee']}</h3>
-                    <h3>total: {price['totalAmountUsd']}</h3>
-                    <button onClick={confirmBooking}>Confirm Booking</button>
-                </div>
+                <table className='tablecontainer'>
+                    <tr>
+                        <td>Amount Per Adult</td>
+                        <td>{price['amountPerAdult']}</td>
+                    </tr>
+                    <tr>
+                        <td>Amount Per Child</td>
+                        <td>{price['amountPerChild']}</td>
+                    </tr>
+                    <tr>
+                        <td>Amount Per Infant</td>
+                        <td>{price['amountPerInfant']}</td>
+                    </tr>
+                    <tr>
+                        <td>booking Fees</td>
+                        <td>{price['bookingFee']}</td>
+                    </tr>
+                    <tr>
+                        <td>Ticket amount</td>
+                        <td>{price['amountUsd']}</td>
+                    </tr>
+                    <tr>
+                        <td><em>Total</em></td>
+                        <td><h3>{price['totalAmountUsd']}</h3></td>
+
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <button onClick={confirmBooking}>Confirm Booking</button>
+
+                    </tr>
+
+                </table>
 
             }
         </div>
