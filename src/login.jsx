@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import './login.css';
 import apiClient from "./http/apiClient";
 import ErrorIcon from "./icons/ErrorIcon";
+import { LoginContext } from "./Context/LoginContext";
+import { useEffect } from "react";
+import { SlideShow } from "./SlideShow";
 
 const Login = (props) => {
-  const [email, setEmail] = useState("")
+
+  const { sessionUser, setSessionUser, setToken, setTimeLeft } = useContext(LoginContext);
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("")
   const [error, setError] = useState(null)
 
@@ -29,11 +34,10 @@ const Login = (props) => {
         "password": password
       }
       apiClient.post("/auth/generate", postData).then((result) => {
-        localStorage.setItem("token", result.data);
-        console.log(localStorage.getItem("token"), result)
-        localStorage.setItem("sessionUser", email);
-        const event = new CustomEvent('localdatachanged');
-        document.dispatchEvent(event);
+        setToken(result.data);
+        console.log(result.data)
+        setSessionUser(email)
+        setTimeLeft(600)
         navigate("/booking");
       }).catch((err) => {
         console.log(err);
@@ -74,39 +78,50 @@ const Login = (props) => {
       setEmail(value);
     }
   }
+
+  useEffect(() => {
+    if (sessionUser != null) {
+      navigate('/booking')
+    }
+  }, [])
   return (
-    <div className="login-container">
-      <h2>Login</h2>
-      <div className="input-container">
-        <input
-          type="email" // Change the input type to "email"
-          placeholder="Email" // Update the placeholder
-          value={email}
-          onChange={(e) => onChange("email", e.target.value)}
-        />
+    <div className="main-container">
+      <div className="slideshow">
+        <SlideShow />
       </div>
-      <div className="input-container">
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => onChange("password", e.target.value)}
-        />
+      <div className="login-container">
+        <h2>Login</h2>
+        <div className="input-container">
+          <input
+            type="email" // Change the input type to "email"
+            placeholder="Email" // Update the placeholder
+            value={email}
+            onChange={(e) => onChange("email", e.target.value)}
+          />
+        </div>
+        <div className="input-container">
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => onChange("password", e.target.value)}
+          />
+        </div>
+        {error !== null &&
+          <div className="error-message">
+            <ErrorIcon className="icon" />
+            <div>
+              {error}
+            </div>
+          </div>}
+        <button className="login-button" onClick={onButtonClick}>
+          Login
+        </button>
+        <div className="row">
+          <Link to="/register">Register</Link>
+          <Link to="/">Go Back to Home</Link>
+        </div>
       </div>
-      {error !== null &&
-        <div className="error-message">
-          <ErrorIcon className="icon" />
-          <div>
-            {error}
-          </div>
-        </div>}
-      <button className="login-button" onClick={onButtonClick}>
-        Login
-      </button>
-      <br />
-      <br />
-      <div>Not a customer? Register <Link to="/register">here</Link></div>
-      <div>forgot password? <Link to="/forgot">here</Link></div>
     </div>
   );
 };

@@ -1,13 +1,31 @@
+.main-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.slideshow {
+  flex: 2 1 0;
+  height: 100%;
+}
+
+
 .registration-container {
+  flex: 1 1 0;
   display: flex;
   flex-direction: column;
+  padding-top: 5%;
+  gap: 3%;
   align-items: center;
-  width: 300px;
-  margin: auto;
-  padding: 20px;
+  justify-content: flex-start;
+  width: 40%;
+  height: 100%;
   background-color: #f9f9f9;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   text-align: center;
 }
 
@@ -43,4 +61,13 @@ input {
 button:disabled {
   background-color: grey;
   color: white;
+}
+
+.error-message {
+  display: flex;
+  gap: 1%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
 }

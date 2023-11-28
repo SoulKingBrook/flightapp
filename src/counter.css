@@ -1,0 +1,19 @@
+.display {
+    display: flex;
+    flex: 2 1 0;
+    background-color: inherit;
+    align-items: center;
+    justify-content: center;
+}
+
+.counter-button {
+    flex: 1 1 0;
+    padding: 0%;
+}
+
+.counter-container {
+    display: flex;
+    flex-direction: row;
+
+
+}

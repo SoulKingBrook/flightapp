@@ -1,29 +1,34 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import badge from "./images/badge.png"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "./index.css"
 import "./navbar.css"
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useContext } from 'react';
+import { LoginContext } from './Context/LoginContext';
+import AdultIcon from './icons/adult';
+import LoginIcon from './icons/loginIcon';
 
-const Navbar = () => {
-    const [username, setUsername] = useState(null)
-
-
-    document.addEventListener('localdatachanged', () => {
-        setUsername(localStorage.getItem("sessionUser"))
-    });
-
-    useEffect(() => {
-        setUsername(localStorage.getItem("sessionUser"))
-    }, [])
-
+const Navbar = ({ isAdmin, setIsAdmin }) => {
+    const { sessionUser, setSessionUser, timeLeft, setTimeLeft } = useContext(LoginContext)
+    const navigate = useNavigate();
     const logout = () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("sessionUser")
-        setUsername(null)
-
+        setSessionUser(null);
+        setIsAdmin(false);
     }
+    useEffect(() => {
+        if (sessionUser != null) {
+            if (timeLeft <= 0) {
+                setSessionUser(null)
+                setTimeLeft(-1)
+                navigate('/logout')
+
+            }
+            setTimeout(() => {
+                setTimeLeft(timeLeft - 1)
+            }, 1000)
+        }
+    }, [timeLeft])
+
     return (
         <div className="navbar">
             <div className="left">
@@ -31,21 +36,29 @@ const Navbar = () => {
                     <img src={badge} alt='' />
                 </Link>
             </div>
-            <div className="right">
+            <div className="right" style={{ "display": "flex", "justifyContent": "center", "alignItems": "center" }}>
                 <Link to="/about">ABOUT</Link>
                 <Link to="/service">SERVICE</Link>
-                <Link to="/contact">CONTACT</Link>
-                {username && username !== "null" &&
-                    <div className="dropdown">
-                        <button className="dropbtn">{username}
-                            <i className="fa fa-caret-down"></i>
-                        </button>
-                        <div className="dropdown-content">
-                            <Link to="/login" onClick={logout}>Logout</Link>
-                            <Link to="/my-bookings">Bookings</Link>
+                {sessionUser &&
+                    <div>
+                        <div className="dropdown">
+                            <button className="dropbtn" style={{ "display": "flex", "justifyContent": "space-between", "alignItems": "center" }}><LoginIcon /> {sessionUser}
+
+                                <i className="fa fa-caret-down">
+
+                                </i>
+                            </button>
+                            <div className="dropdown-content">
+                                <Link to="/" onClick={logout}>Logout</Link>
+                                <Link to="/my-bookings">Bookings</Link>
+                                {isAdmin &&
+                                    <Link to="/admin/cancelbookings">Cancel Bookings</Link>
+                                }
+                            </div>
                         </div>
+                        <Link id="badge" title="click to login again" to="/login" onClick={logout}>{Math.floor(timeLeft / 60)}:{("0" + timeLeft % 60).slice(-2)}</Link>
                     </div>
-                    || <div><Link to="/login">LOGIN</Link>
+                    || <div><Link to="/login">LOGIN </Link>
                         <Link to="/register">REGISTER</Link></div>}
             </div>
 

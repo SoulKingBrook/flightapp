@@ -2,11 +2,13 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 88%;
-    height: 150px;
+    width: 85%;
+    height: 20%;
     background-color: white;
-    margin: 20px;
-    padding: 50px;
+    padding: 5%;
+    margin-bottom: 1%;
+    margin-top: 2%;
+    justify-content: center;
     border-radius: 15px;
 }
 
@@ -19,6 +21,7 @@
     flex-direction: row;
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
 .flightsContainer {
@@ -30,7 +33,7 @@
     overflow: scroll;
     flex-direction: column;
     justify-content: space-between;
-
+    align-items: center;
 }
 
 .flightsContainer::-webkit-scrollbar {
@@ -63,14 +66,6 @@ p {
     font-size: 50px;
 }
 
-.line {
-    width: 100%;
-    height: 0;
-    border: 1px solid gray;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
 .filterContainer {
     background-color: white;
     width: 20%;
@@ -80,4 +75,26 @@ p {
 .filter {
     width: 80%;
     padding-left: 10%;
+}
+
+.flight-icon {
+    padding: 5%;
+}
+
+.row-small {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.stops {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.showStops {
+    position: relative;
 }

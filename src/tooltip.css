@@ -1,0 +1,18 @@
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+    height: 100%;
+    max-width: 200px;
+}
+
+.showStops {
+    position: absolute;
+    display: inline-block;
+    z-index: 20;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    overflow: visible;
+    border-radius: 5px;
+    color: azure;
+    max-width: 200px;
+}

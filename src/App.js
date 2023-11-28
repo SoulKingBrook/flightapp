@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './index.css';
+import './App.css'
 import Login from './login';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import FlightBooking from './flightBooking';
@@ -14,32 +15,65 @@ import MyBookings from './MyBookings';
 import AdminRegistration from './AdminRegister';
 import AdminLogin from './AdminLogin';
 import CancelBookings from './CancelBookings';
-
+import { LoginContext } from './Context/LoginContext'
+import { useState } from 'react';
+import { FlightContext } from './Context/FlightContext';
+import MainPayment from './MainPayment';
+import PersonalInfoPage from './PersonalInfoPage';
+import Success from './icons/Success';
+import AboutUs from './AboutUs';
+import Service from './service';
+import SessionExpiredPage from './SessionExpiredPage';
 
 
 function App() {
-  return (
-    <div className="App">
+  const [sessionUser, setSessionUser] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(-1);
+  const [token, setToken] = useState(null);
+  const [flights, setFlights] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const divStyle = {
+    backgroundSize: 'cover',
+    position: 'relative',
+    height: '100%',
+  }
+  const userRoutes = [
+    <Route path="/booking" element={<FlightBooking />} />,
+    <Route path="/flights" element={<FlightContext.Provider value={{ flights, setFlights }}><Flights /></FlightContext.Provider>} />,
+    <Route path="/personalInfo" element={<PersonalInfoPage />} />,
+    <Route path="/payment" element={<MainPayment />} />,
+    <Route path="/success" element={<Success />} />,
+    <Route path="/priceBreakdown" element={<FlightContext.Provider value={{ flights, setFlights }}><PriceBreakdown /></FlightContext.Provider>} />,
+    <Route path="/my-bookings" element={<FlightContext.Provider value={{ flights, setFlights }}><MyBookings /></FlightContext.Provider>} />,
 
-      <BrowserRouter>
-        <Navbar />
-        <div className="main">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/booking" element={<FlightBooking />} />
-            <Route path="/register" element={<Registration />} />
-            <Route path="/flights" element={<Flights />} />
-            <Route path="/forgot" element={<Forgot />} />
-            <Route path="/priceBreakdown" element={<PriceBreakdown />} />
-            <Route path="/my-bookings" element={<MyBookings />} />
-            <Route path="/admin/register" element={<AdminRegistration />} />
-            <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin/cancelbookings" element={<CancelBookings />} />
-            <Route path="*" element={<Dummy />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
+
+    <Route path="/admin/cancelbookings" element={<FlightContext.Provider value={{ flights, setFlights }}><CancelBookings /></FlightContext.Provider>} />
+  ]
+
+  return (
+    <div className="App" style={{ ...divStyle, 'backgroundImage': `url(${'https://c4.wallpaperflare.com/wallpaper/319/249/274/the-sky-flight-a380-the-plane-wallpaper-preview.jpg'})` }}>
+
+      <LoginContext.Provider value={{ sessionUser, setSessionUser, token, setToken, timeLeft, setTimeLeft }}>
+        <BrowserRouter>
+          <Navbar isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
+          <div className="main"  >
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Registration />} />
+              <Route path="/admin/register" element={<AdminRegistration />} />
+              <Route path="/admin/login" element={<AdminLogin setIsAdmin={setIsAdmin} />} />
+              <Route path="/about" element={<AboutUs />} />,
+              <Route path="/service" element={<Service />} />,
+              <Route path="/logout" element={<SessionExpiredPage />} />,
+              {sessionUser &&
+                userRoutes
+              }
+              <Route path="*" element={<Dummy />} />
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </LoginContext.Provider>
     </div>
   );
 }

@@ -1,0 +1,25 @@
+/* FlightAnimation.css */
+.flight {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin-top: 100px;
+    transition: transform 2s ease-in-out;
+}
+
+.fly-away {
+    transform: translate(100vw, -20vh);
+    /* Adjust the values for horizontal and vertical movement */
+}
+
+.airplane {
+    position: absolute;
+    width: 50px;
+    height: 20px;
+    background-color: white;
+    border-radius: 5px;
+    top: 50%;
+    left: 0;
+    /* Start from the left */
+    transform: translate(-50%, -50%);
+}

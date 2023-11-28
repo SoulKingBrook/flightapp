@@ -1,0 +1,21 @@
+.session-expired-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.session-expired-content {
+    text-align: center;
+}
+
+.session-expired-content h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.session-expired-content p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}

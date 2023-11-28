@@ -11,6 +11,7 @@ const FlightBooking = () => {
   const [from, setFrom] = useState("default");
   const [to, setTo] = useState("default");
   const [departureDate, setDepartureDate] = useState("");
+  const [arrivalDate, setArrivalDate] = useState("");
   const [adults, setAdults] = useState(0);
   const [children, setChildren] = useState(0);
   const [infants, setInfants] = useState(0);
@@ -20,7 +21,7 @@ const FlightBooking = () => {
   const navigate = useNavigate();
 
   const displayFlights = () => {
-    if (from === "default" || to === "default" || bookingClass === "default" || trip === "default" || children + infants + adults === 0) {
+    if (from === "default" || to === "default" || bookingClass === "default" || trip === "default" || children + infants + adults === 0 || departureDate == '' || (trip === "roundtrip" && arrivalDate == '')) {
       setError("please select all values")
       return
     }
@@ -28,7 +29,12 @@ const FlightBooking = () => {
       setError("Source and destination cannot be same")
       return
     }
-    navigate(`/flights/?from=${from}&to=${to}&date=${departureDate}&adults=${adults}&children=${children}&infants=${infants}&class=${bookingClass}&trip=${trip}`);
+    if (trip === "onewaytrip") {
+      navigate(`/flights/?from=${from}&to=${to}&departureDate=${departureDate}&adults=${adults}&children=${children}&infants=${infants}&class=${bookingClass}&trip=${trip}`);
+    }
+    else {
+      navigate(`/flights/?from=${from}&to=${to}&departureDate=${departureDate}&adults=${adults}&children=${children}&infants=${infants}&class=${bookingClass}&trip=${trip}&arrivalDate=${arrivalDate}`);
+    }
   };
 
   return (
@@ -91,7 +97,7 @@ const FlightBooking = () => {
               id="departureDate"
               type="date"
               min={new Date().toISOString().split('T')[0]}
-              placeholder="Enter Start Date"
+              placeholder="Enter Arrival Date"
               onChange={(ev) => setDepartureDate(ev.target.value)}
               className="inputBox"
             />
@@ -156,6 +162,24 @@ const FlightBooking = () => {
               <option value="roundtrip">Round Trip</option>
             </select>
           </div>
+
+        </div>
+        <div className="inputContainerRow">
+          {trip == "roundtrip" &&
+            <div className="inputContainer">
+              <label htmlFor="arrivalDate">Arrival Date</label>
+              <br />
+              <input
+                value={arrivalDate}
+                id="arrivalDate"
+                type="date"
+                min={departureDate}
+                placeholder="Enter Arrival Date"
+                onChange={(ev) => setArrivalDate(ev.target.value)}
+                className="inputBox"
+              />
+            </div>
+          }
         </div>
         <br />
         {error !== null &&

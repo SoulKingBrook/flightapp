@@ -3,19 +3,20 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import apiClient from './http/apiClient'
 import { useNavigate } from 'react-router-dom'
+import "./booking.css"
+import { useContext } from 'react'
+import { LoginContext } from './Context/LoginContext'
 
 const MyBookings = () => {
 
     const [bookings, setBookings] = useState(null)
-    const [user, setUser] = useState("")
+    const { token, sessionUser, setSessionUser } = useContext(LoginContext);
+    const [user] = useState("")
     const navigate = useNavigate();
 
     useEffect(() => {
-        let token = localStorage.getItem("token");
-        setUser(localStorage.getItem("sessionUser"))
-        console.log(localStorage.getItem("sessionUser"))
         const getData = {
-            "email": user
+            "email": sessionUser
         }
         console.log(getData)
         apiClient.defaults.headers.common = { "Authorization": `Bearer ${token}` }
@@ -24,15 +25,36 @@ const MyBookings = () => {
             console.log(result)
         }).catch((err) => {
             if (err && err.response && err.response.status === 403) {
-                localStorage.setItem("sessionUser", null)
-                const event = new CustomEvent('localdatachanged');
-                document.dispatchEvent(event);
-                navigate("/login")
+                setSessionUser(null)
+                navigate("/")
             }
         })
     }, [user])
     return (
-        <div>{ }</div>
+        <div className="booking-list-container">
+            <table className="booking-table">
+                <thead>
+                    <tr>
+                        <th>
+                            Booking ID
+                        </th>
+                        <th>
+                            Flight ID
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        bookings &&
+                        bookings.map(booking => {
+                            return (<tr key={booking.bookingID}>
+                                <td>{booking.bookingID}</td>
+                                <td>{booking.flightId}</td>
+                            </tr>)
+                        })
+                    }
+                </tbody></table>
+        </div>
     )
 }
 

@@ -4,6 +4,7 @@ import './registration.css';
 import apiClient from "./http/apiClient";
 import ErrorIcon from "./icons/ErrorIcon";
 import SuccessIcon from "./icons/SuccessIcon"
+import { SlideShow } from "./SlideShow";
 
 
 const Registration = () => {
@@ -96,60 +97,65 @@ const Registration = () => {
   }
 
   return (
-    <div className="registration-container">
-      <h2>Register</h2>
+    <div className="main-container">
+      <div className="slideshow">
+        <SlideShow />
+      </div>
+      <div className="registration-container">
+        <h2>Register</h2>
 
-      <div className="input-container">
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => onChange("email", e.target.value)}
-        />
-      </div>
-      <div className="input-container">
-        <input
-          type="tel"
-          placeholder="Mobile"
-          value={mobile}
-          onChange={(e) => onChange("mobile", e.target.value)}
-        />
+        <div className="input-container">
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => onChange("email", e.target.value)}
+          />
+        </div>
+        <div className="input-container">
+          <input
+            type="tel"
+            placeholder="Mobile"
+            value={mobile}
+            onChange={(e) => onChange("mobile", e.target.value)}
+          />
 
-      </div>
-      <div className="input-container">
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => onChange("password", e.target.value)}
-        />
-      </div>
-      <div className="input-container">
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => onChange("confirmpassword", e.target.value)}
-        />
-      </div>
-      {error !== null && (
-        <div className="error-message">
-          <ErrorIcon className="icon" />
-          <div>{error}</div>
         </div>
-      )}
-      {successMsg !== null && (
-        <div className="error-message">
-          <SuccessIcon className="icon" />
-          <div>{successMsg}</div>
+        <div className="input-container">
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => onChange("password", e.target.value)}
+          />
         </div>
-      )}
-      <button className="register-button" onClick={registerUser} disabled={disabled()}>
-        Register
-      </button>
-      <br />
-      <br />
-      <div>already a customer? login <Link to="/login">here</Link></div>
+        <div className="input-container">
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => onChange("confirmpassword", e.target.value)}
+          />
+        </div>
+        {error !== null && (
+          <div className="error-message">
+            <ErrorIcon className="icon" />
+            <div>{error}</div>
+          </div>
+        )}
+        {successMsg !== null && (
+          <div className="error-message">
+            <SuccessIcon className="icon" />
+            <div>{successMsg}</div>
+          </div>
+        )}
+        <button className="register-button" onClick={registerUser} disabled={disabled()}>
+          Register
+        </button>
+        <br />
+        <br />
+        <div>already a customer? login <Link to="/login">here</Link></div>
+      </div>
     </div>
   );
 };

@@ -3,8 +3,13 @@ import { useNavigate, Link } from "react-router-dom";
 import './login.css';
 import apiClient from "./http/apiClient";
 import ErrorIcon from "./icons/ErrorIcon";
+import { useContext } from "react";
+import { LoginContext } from "./Context/LoginContext";
+import { SlideShow } from "./SlideShow";
 
-const AdminLogin = (props) => {
+const AdminLogin = ({ setIsAdmin }) => {
+  const { setSessionUser, setToken, setTimeLeft } = useContext(LoginContext);
+
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState(null)
@@ -29,11 +34,10 @@ const AdminLogin = (props) => {
         "password": password
       }
       apiClient.post("/auth/generateAdmin", postData).then((result) => {
-        localStorage.setItem("token", result.data);
-        console.log(localStorage.getItem("token"), result)
-        localStorage.setItem("sessionUser", email);
-        const event = new CustomEvent('localdatachanged');
-        document.dispatchEvent(event);
+        setToken(result.data);
+        setSessionUser(email);
+        setTimeLeft(600);
+        setIsAdmin(true);
         navigate("/admin/cancelbookings");
       }).catch((err) => {
         console.log(err);
@@ -75,38 +79,43 @@ const AdminLogin = (props) => {
     }
   }
   return (
-    <div className="login-container">
-      <h2>Admin Login</h2>
-      <div className="input-container">
-        <input
-          type="email" // Change the input type to "email"
-          placeholder="Email" // Update the placeholder
-          value={email}
-          onChange={(e) => onChange("email", e.target.value)}
-        />
+    <div className="main-container">
+      <div className="slideshow">
+        <SlideShow />
       </div>
-      <div className="input-container">
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => onChange("password", e.target.value)}
-        />
+      <div className="login-container">
+        <h2>Admin Login</h2>
+        <div className="input-container">
+          <input
+            type="email" // Change the input type to "email"
+            placeholder="Email" // Update the placeholder
+            value={email}
+            onChange={(e) => onChange("email", e.target.value)}
+          />
+        </div>
+        <div className="input-container">
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => onChange("password", e.target.value)}
+          />
+        </div>
+        {error !== null &&
+          <div className="error-message">
+            <ErrorIcon className="icon" />
+            <div>
+              {error}
+            </div>
+          </div>}
+        <button className="login-button" onClick={onButtonClick}>
+          Login
+        </button>
+        <div className="row">
+          <Link to="/admin/register">Register</Link>
+          <Link to="/">Go Back to home</Link>
+        </div>
       </div>
-      {error !== null &&
-        <div className="error-message">
-          <ErrorIcon className="icon" />
-          <div>
-            {error}
-          </div>
-        </div>}
-      <button className="login-button" onClick={onButtonClick}>
-        Login
-      </button>
-      <br />
-      <br />
-      <div>Not a customer? Register <Link to="/admin/register">here</Link></div>
-      <div>forgot password? <Link to="/forgot">here</Link></div>
     </div>
   );
 };
