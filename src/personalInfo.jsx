@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import "./personal.css"
 
-const PersonalInfo = ({ title }) => {
+const PersonalInfo = ({ title, setPassengers, passengers }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [fullName, setFullName] = useState("");
+    const [mobile, setMobile] = useState("");
+    const [age, setAge] = useState("");
 
     const handleSubmit = (event) => {
         event.preventDefault();
         // Handle form submission logic here
+        let x = { ...passengers }
+        x[title] = { "fullName": fullName, "mobile": mobile, "age": age }
+        setPassengers(x)
+        setIsOpen(false)
     };
     const svg = () => {
         return (
@@ -32,19 +39,23 @@ const PersonalInfo = ({ title }) => {
                             <input
                                 type='text'
                                 name='Full Name'
-
+                                value={fullName}
+                                onChange={(e) => setFullName(e.target.value)}
                             />
                             <label>Mobile info</label>
                             <input
                                 type='mobile'
-                                name='Age'
+                                name='mobile'
+                                value={mobile}
+                                onChange={(e) => setMobile(e.target.value)}
 
                             />
                             <label>Age</label>
                             <input
                                 type='number'
                                 name='Age'
-
+                                value={age}
+                                onChange={(e) => setAge(e.target.value)}
                             />
                         </div>
                         <button type="submit">Submit</button>

@@ -24,6 +24,7 @@ import Success from './icons/Success';
 import AboutUs from './AboutUs';
 import Service from './service';
 import SessionExpiredPage from './SessionExpiredPage';
+import Ticket from './Ticket';
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
   const [token, setToken] = useState(null);
   const [flights, setFlights] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [passengers, setPassengers] = useState(null);
   const divStyle = {
     backgroundSize: 'cover',
     position: 'relative',
@@ -53,7 +55,7 @@ function App() {
   return (
     <div className="App" style={{ ...divStyle, 'backgroundImage': `url(${'https://c4.wallpaperflare.com/wallpaper/319/249/274/the-sky-flight-a380-the-plane-wallpaper-preview.jpg'})` }}>
 
-      <LoginContext.Provider value={{ sessionUser, setSessionUser, token, setToken, timeLeft, setTimeLeft }}>
+      <LoginContext.Provider value={{ sessionUser, setSessionUser, token, setToken, timeLeft, setTimeLeft, passengers, setPassengers }}>
         <BrowserRouter>
           <Navbar isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
           <div className="main"  >
@@ -65,6 +67,7 @@ function App() {
               <Route path="/admin/login" element={<AdminLogin setIsAdmin={setIsAdmin} />} />
               <Route path="/about" element={<AboutUs />} />,
               <Route path="/service" element={<Service />} />,
+              <Route path="/ticket" element={<Ticket />} />,
               <Route path="/logout" element={<SessionExpiredPage />} />,
               {sessionUser &&
                 userRoutes

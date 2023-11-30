@@ -70,15 +70,20 @@ const Flights = () => {
     }
 
     useEffect(() => {
-        if (initialFlights == null && flights != null || flights && initialFlights && flights.length > initialFlights.length) {
+        console.log(initialFlights, flights)
+        if (isFetched && ((flights.legs != initialFlights && !filterisFetched) || (initialFlights != null && flights != null && initialFlights.length < flights.legs.length) || (initialFlights == null && flights != null))) {
             setInitialFlights(flights.legs)
             setFilterFetched(true)
         }
+
     }, [flights])
+
     useEffect(() => {
-        if (initialFlights != null && initialFlights != []) {
+        if (initialFlights != null && filterisFetched) {
             let x = initialFlights.map(flight => flight.prices.price.totalAmountUsd);
-            if (x.length == 0) { return }
+            if (x.length == 0) {
+                return
+            }
             console.log(x.reduce((a, b) => Math.min(a, b)))
             setPriceRange([x.reduce((a, b) => Math.min(a, b)), x.reduce((a, b) => Math.max(a, b))])
             setPriceValue(x.reduce((a, b) => Math.max(a, b)));
@@ -86,8 +91,10 @@ const Flights = () => {
             let y = initialFlights.map(flight => convertTimeString(flight.departureTime))
             setDepartureTimeRange([y.reduce((a, b) => Math.min(a, b)), y.reduce((a, b) => Math.max(a, b))])
             setDepartureTimeValues([y.reduce((a, b) => Math.min(a, b)), y.reduce((a, b) => Math.max(a, b))])
+
         }
     }, [initialFlights])
+
     useEffect(() => {
         console.log(initialFlights)
         if (initialFlights != null && initialFlights != []) {
@@ -130,10 +137,7 @@ const Flights = () => {
 
 
     // useEffect(() => {
-
     //     if (!isFetched) {
-
-
     //         let tripData = searchParams.get("trip")
     //         let getData = null
     //         let departureDate = searchParams.get("departureDate").split('-').reverse().join('-');
@@ -177,7 +181,8 @@ const Flights = () => {
     //             }
     //         })
     //     }
-    // }, [])
+    // }
+    //     , [])
 
     useEffect(() => {
         console.log(flightData)
