@@ -136,60 +136,60 @@ const Flights = () => {
     }, [sortBy])
 
 
-    // useEffect(() => {
-    //     if (!isFetched) {
-    //         let tripData = searchParams.get("trip")
-    //         let getData = null
-    //         let departureDate = searchParams.get("departureDate").split('-').reverse().join('-');
-    //         if (tripData === "onewaytrip") {
-
-    //             getData = {
-    //                 "source": searchParams.get("from"),
-    //                 "destination": searchParams.get("to"),
-    //                 "departureDate": departureDate,
-    //                 "noOfAdults": searchParams.get("adults"),
-    //                 "noOfChildren": searchParams.get("children"),
-    //                 "noOfInfants": searchParams.get("infants"),
-    //                 "trip": tripData,
-    //                 "bookingClass": searchParams.get("class")
-    //             }
-    //         }
-    //         else {
-    //             let arrivalDate = searchParams.get("arrivalDate").split('-').reverse().join('-')
-    //             getData = {
-    //                 "source": searchParams.get("from"),
-    //                 "destination": searchParams.get("to"),
-    //                 "departureDate": departureDate,
-    //                 "arrivalDate": arrivalDate,
-    //                 "noOfAdults": searchParams.get("adults"),
-    //                 "noOfChildren": searchParams.get("children"),
-    //                 "noOfInfants": searchParams.get("infants"),
-    //                 "trip": tripData,
-    //                 "bookingClass": searchParams.get("class")
-    //             }
-    //         }
-
-    //         apiClient.defaults.headers.common = { "Authorization": `Bearer ${token}` }
-    //         apiClient.post("/app/flights", getData).then(result => {
-    //             console.log(result)
-    //             setFlights(result.data)
-    //             setFetched(true)
-    //         }).catch((err) => {
-    //             console.log(err)
-    //             if (err && err.response && err.response.status === 403) {
-    //                 navigate("/login")
-    //             }
-    //         })
-    //     }
-    // }
-    //     , [])
-
     useEffect(() => {
-        console.log(flightData)
-        //flightData.legs = []
-        setFlights(flightData)
-        setFetched(true)
-    }, [])
+        if (!isFetched) {
+            let tripData = searchParams.get("trip")
+            let getData = null
+            let departureDate = searchParams.get("departureDate").split('-').reverse().join('-');
+            if (tripData === "onewaytrip") {
+
+                getData = {
+                    "source": searchParams.get("from"),
+                    "destination": searchParams.get("to"),
+                    "departureDate": departureDate,
+                    "noOfAdults": searchParams.get("adults"),
+                    "noOfChildren": searchParams.get("children"),
+                    "noOfInfants": searchParams.get("infants"),
+                    "trip": tripData,
+                    "bookingClass": searchParams.get("class")
+                }
+            }
+            else {
+                let arrivalDate = searchParams.get("arrivalDate").split('-').reverse().join('-')
+                getData = {
+                    "source": searchParams.get("from"),
+                    "destination": searchParams.get("to"),
+                    "departureDate": departureDate,
+                    "arrivalDate": arrivalDate,
+                    "noOfAdults": searchParams.get("adults"),
+                    "noOfChildren": searchParams.get("children"),
+                    "noOfInfants": searchParams.get("infants"),
+                    "trip": tripData,
+                    "bookingClass": searchParams.get("class")
+                }
+            }
+
+            apiClient.defaults.headers.common = { "Authorization": `Bearer ${token}` }
+            apiClient.post("/app/flights", getData).then(result => {
+                console.log(result)
+                setFlights(result.data)
+                setFetched(true)
+            }).catch((err) => {
+                console.log(err)
+                if (err && err.response && err.response.status === 403) {
+                    navigate("/login")
+                }
+            })
+        }
+    }
+        , [])
+
+    // useEffect(() => {
+    //     console.log(flightData)
+    //     //flightData.legs = []
+    //     setFlights(flightData)
+    //     setFetched(true)
+    // }, [])
     return (
 
         <div className='container'>

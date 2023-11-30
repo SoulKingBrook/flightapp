@@ -12,7 +12,7 @@ const PriceBreakdown = () => {
     const [searchParams] = useSearchParams();
     const [price, setPrice] = useState(null);
     const { flights } = useContext(FlightContext);
-    const [baggage, setBaggage] = useState(0)
+    const [baggage, setBaggage] = useState(0);
     const adults = searchParams.get("adults");
     const children = searchParams.get("children");
     const infants = searchParams.get("infants");
@@ -51,7 +51,7 @@ const PriceBreakdown = () => {
                     </React.Fragment> ||
                         <tr>
                             <td>Ticket amount</td>
-                            <td>${(+price['amountUsd']).toFixed(2)} *{(+adults) + (+children)}</td>
+                            <td>${(+price['amountUsd']).toFixed(2)} *{(+adults) + (+children) + (+infants)}</td>
                         </tr>}
                     <tr>
                         <td>booking Fees</td>
