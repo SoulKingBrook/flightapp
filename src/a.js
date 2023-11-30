@@ -5,8 +5,8 @@ const data = {
             "departureTime": "19:57",
             "arrivalTime": "11:51",
             "duration": "18h 54m",
-            "departureAirportCode": "JFK",
-            "arrivalAirportCode": "LAX",
+            "departureAirportCode": "LAX",
+            "arrivalAirportCode": "JFK",
             "airlineCodes": [
                 "DL"
             ],
@@ -127,12 +127,12 @@ const data = {
             }
         },
         {
-            "id": "JFK-LAX:DL827~23:DL3724~23:DL2551~23:0",
+            "id": "LAX-JFK:DL827~23:DL3724~23:DL2551~23:0",
             "departureTime": "07:10",
             "arrivalTime": "19:41",
             "duration": "15h 31m",
-            "departureAirportCode": "JFK",
-            "arrivalAirportCode": "LAX",
+            "departureAirportCode": "LAX",
+            "arrivalAirportCode": "JFK",
             "airlineCodes": [
                 "DL"
             ],

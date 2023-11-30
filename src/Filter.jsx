@@ -12,7 +12,7 @@ const Filter = ({ priceRange, departureTimeRange, departureTimeValues, priceValu
             <Slider style={{ 'color': '#a564b1' }} value={priceValue} min={priceRange[0]} max={priceRange[1]} onChange={(e, v) => { setPriceValue(v) }} valueLabelDisplay="on" />
 
             <h3>Departure Time Range</h3>
-            <p>{new Date(departureTimeValues[0]).toLocaleTimeString('en-GB') + ' - ' + new Date(departureTimeValues[1]).toLocaleTimeString('en-GB')}</p>
+            <p>{new Date(departureTimeRange[0]).toLocaleTimeString('en-GB') + ' - ' + new Date(departureTimeRange[1]).toLocaleTimeString('en-GB')}</p>
             <Slider style={{ 'color': '#a564b1' }} value={departureTimeValues} min={departureTimeRange[0]} max={departureTimeRange[1]} onChange={(e, v) => { setDepartureTimeValues(v) }} valueLabelDisplay="off" />
 
             <br />

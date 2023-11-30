@@ -16,6 +16,19 @@
     cursor: pointer;
 }
 
+.infoContainer {
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 80%;
+    background-color: white;
+    z-index: 21;
+    box-shadow: 0 2px 3px -1px rgba(0, 0, 0, 0.1);
+    ;
+}
+
+
 .container {
     display: flex;
     flex-direction: row;

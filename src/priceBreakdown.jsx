@@ -19,10 +19,30 @@ const PriceBreakdown = () => {
     const id = searchParams.get("id");
     const navigate = useNavigate();
     useEffect(() => {
-        let legId = id
-        let leg = flights["legs"].find(l => l["id"] === legId)
-        console.log(leg)
-        setPrice(leg.prices.price)
+        let legId = searchParams.get("id");
+        if (legId.includes(',')) {
+            let legIds = id.split(',')
+            let leg1 = flights["legs"].find(l => l["id"] === legIds[0])
+            let leg2 = flights["legs"].find(l => l["id"] === legIds[0])
+
+            let prices1 = leg1.prices.price
+            let prices2 = leg2.prices.price
+
+            prices1['amountPerAdult'] += prices2['amountPerAdult']
+            prices1['amountPerChild'] += prices2['amountPerChild']
+            prices1['amountPerInfant'] += prices2['amountPerInfant']
+            prices1['amountUsd'] += prices2['amountUsd']
+            prices1['bookingFeeUsd'] += prices2['bookingFeeUsd']
+            prices1['taxAmountUsd'] += prices2['taxAmountUsd']
+            prices1['totalAmountUsd'] += prices2['totalAmountUsd']
+            setPrice(prices1)
+        }
+        else {
+            let leg = flights["legs"].find(l => l["id"] === legId)
+            console.log(leg)
+
+            setPrice(leg.prices.price)
+        }
     }, [])
     const confirmBooking = () => {
         navigate(`/personalInfo/?id=${id}&adults=${adults}&children=${children}&infants=${infants}`)
