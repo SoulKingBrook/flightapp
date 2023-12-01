@@ -18,6 +18,9 @@ const PayPalForm = () => {
     const [password, setPassword] = useState('')
     const navigate = useNavigate();
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    };
     const confirmBooking = () => {
 
         if (email == "" || password == "") {
@@ -44,7 +47,7 @@ const PayPalForm = () => {
         }
     }
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             {/* PayPal form elements go here */}
             <PayPal />
             <div>
